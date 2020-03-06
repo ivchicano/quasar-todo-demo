@@ -1,0 +1,35 @@
+# docker-compose.yml
+
+version: '3'
+services:
+  server:
+    image: postgrest/postgrest
+    ports:
+      - "3000:3000"
+    links:
+      - db:db
+    environment:
+      PGRST_DB_URI: postgres://todo:todo@db:5432/todo
+      PGRST_DB_SCHEMA: public
+      PGRST_DB_ANON_ROLE: todo #In production this role should not be the same as the one used for the connection
+    depends_on:
+      - db
+  db:
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: todo
+      POSTGRES_USER: todo
+      POSTGRES_PASSWORD: todo
+  # Uncomment this if you want to persist the data.
+    volumes:
+      - "./pgdata:/var/lib/postgresql/data"
+  swagger:
+      image: swaggerapi/swagger-ui
+      ports:
+        - "8081:8080"
+      expose:
+        - "8080"
+      environment:
+        API_URL: http://192.168.99.100:3000/

@@ -9,7 +9,7 @@
       side
       top
     >
-      <q-checkbox v-model="task.completed" />
+      <q-checkbox :value="task.completed" />
     </q-item-section>
 
     <q-item-section>

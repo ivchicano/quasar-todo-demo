@@ -37,18 +37,22 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
+import { fetchTasks } from '../store/module-tasks/mutations'
 export default {
   computed: {
     ...mapGetters('tasks', ['tasksTodo', 'tasksCompleted', 'showAddTaskModal'])
   },
   methods: {
-    ...mapActions('tasks', ['changeShowAddTaskModal'])
+    ...mapActions('tasks', ['fetchTasks', 'changeShowAddTaskModal'])
   },
   components: {
     'add-task': require('components/Modals/AddTask.vue').default,
     'tasks-todo': require('components/Tasks/TaskTodo.vue').default,
     'tasks-completed': require('components/Tasks/TaskCompleted.vue').default,
     'no-tasks': require('components/Tasks/NoTasks.vue').default
+  },
+  created () {
+    this.fetchTasks();
   }
 }
 </script>

@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import tasks from './store-tasks'
+import tasks from './module-tasks'
 
 Vue.use(Vuex)
 
